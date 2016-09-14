@@ -16,6 +16,12 @@ public class TeleLogin extends javax.swing.JFrame {
     PreparedStatement ps = null;
     ResultSet rs = null;
     
+    public void logar(){
+        
+        String sql=" select * from tbusuario where ";
+    
+    }
+    
     /**
      * Creates new form TeleLogin
      */
