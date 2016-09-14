@@ -59,7 +59,12 @@ public class TeleLogin extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel2.setText("Senha");
 
+        jTextField1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+
+        btnLogin.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         btnLogin.setText("Login");
+
+        jPasswordField1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ao/com/infox/icons/bdErro.png"))); // NOI18N
 
