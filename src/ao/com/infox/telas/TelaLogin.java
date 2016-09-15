@@ -4,38 +4,58 @@
  * and open the template in the editor.
  */
 package ao.com.infox.telas;
+
 import java.sql.*;
 import ao.com.infox.dal.Conexao;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author proresol
  */
-public class TeleLogin extends javax.swing.JFrame {
+public class TelaLogin extends javax.swing.JFrame {
+
     Connection conexao = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     
-    public void logar(){
+    public void logar() {
         
-        String sql=" select * from tbusuario where ";
-    
+        String sql = " select * from tbusuario where login =? and senha =?";
+        try {
+            // as linha abaixo preparam a consulta ao banco em função dos dados de login
+            ps = conexao.prepareStatement(sql);
+            ps.setString(1, txtUsuario.getText());
+            ps.setString(2, txtSenha.getText());
+            // excutando a consulta
+            rs = ps.executeQuery();
+            // teste dos dados inseridos
+            if (rs.next()) {
+                TelaPricipal Principal = new TelaPricipal();
+                Principal.setVisible(true);
+                this.dispose();
+                conexao.close();
+            } else {
+                JOptionPane.showMessageDialog(null, "! Usuario ou Senha invalidos");                
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
     }
-    
+
     /**
      * Creates new form TeleLogin
      */
-    
-    
-    public TeleLogin() {
+    public TelaLogin() {
         initComponents();
-        conexao = Conexao.conector();        
-       // System.out.println(conexao);
-       if (conexao !=null) {
-           lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ao/com/infox/icons/bdOK.png")));
-       }else{
-           lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ao/com/infox/icons/bdErro.png")));      
-       }
+        conexao = Conexao.conector();
+        // System.out.println(conexao);
+        if (conexao != null) {
+            lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ao/com/infox/icons/bdOK.png")));
+        } else {
+            lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ao/com/infox/icons/bdErro.png")));            
+        }
     }
 
     /**
@@ -49,9 +69,9 @@ public class TeleLogin extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtSenha = new javax.swing.JPasswordField();
         lblStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -65,12 +85,17 @@ public class TeleLogin extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jLabel2.setText("Senha");
 
-        jTextField1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        txtUsuario.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         btnLogin.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         btnLogin.setText("Login");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
-        jPasswordField1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        txtSenha.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ao/com/infox/icons/bdErro.png"))); // NOI18N
 
@@ -91,8 +116,8 @@ public class TeleLogin extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPasswordField1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtSenha)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(118, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -101,11 +126,11 @@ public class TeleLogin extends javax.swing.JFrame {
                 .addContainerGap(81, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -119,6 +144,12 @@ public class TeleLogin extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(672, 334));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+        //chamando o metodo logar
+        logar();
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -137,20 +168,21 @@ public class TeleLogin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TeleLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TeleLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TeleLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TeleLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TeleLogin().setVisible(true);
+                new TelaLogin().setVisible(true);
             }
         });
     }
@@ -159,8 +191,8 @@ public class TeleLogin extends javax.swing.JFrame {
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblStatus;
+    private javax.swing.JPasswordField txtSenha;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
