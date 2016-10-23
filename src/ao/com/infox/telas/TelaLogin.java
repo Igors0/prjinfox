@@ -7,6 +7,7 @@ package ao.com.infox.telas;
 
 import java.sql.*;
 import ao.com.infox.dal.Conexao;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,10 +19,10 @@ public class TelaLogin extends javax.swing.JFrame {
     Connection conexao = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
-    
+
     public void logar() {
-        
-        String sql = " select * from tbusuarios admin   where login =? and senha =?";
+
+        String sql = "select * from tbusuarios where login =? and senha =?";
         try {
             // as linha abaixo preparam a consulta ao banco em função dos dados de login
             ps = conexao.prepareStatement(sql);
@@ -31,17 +32,33 @@ public class TelaLogin extends javax.swing.JFrame {
             rs = ps.executeQuery();
             // teste dos dados inseridos
             if (rs.next()) {
-                TelaPricipal Principal = new TelaPricipal();
-                Principal.setVisible(true);                
-                this.dispose();
-                conexao.close();
+                // a linha abaixo obtem o conteudo do campo perfil da tabela tbusuarios
+                String perfil = rs.getString(6);
+                System.out.print(perfil);
+               /// tratando o perfil do usuario
+                if (perfil.equals("Administrador") ){
+                    TelaPricipal Principal = new TelaPricipal();
+                    Principal.setVisible(true);
+                    TelaPricipal.menRelatorio.setEnabled(true);
+                    TelaPricipal.menCadUsuario.setEnabled(true);
+                    TelaPricipal.lblUsuario.setText(rs.getString(2));
+                    TelaPricipal.lblUsuario.setBackground(Color.red);   
+                    
+                    this.dispose();
+                    conexao.close();
+                }else{
+                    TelaPricipal Principal = new TelaPricipal();
+                    Principal.setVisible(true);  
+                    TelaPricipal.lblUsuario.setText(rs.getString(2));
+                    TelaPricipal.lblUsuario.setBackground(Color.blue);
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "! Usuario ou Senha invalidos");                
+                JOptionPane.showMessageDialog(null, "! Usuario ou Senha invalidos");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
+
     }
 
     /**
@@ -54,7 +71,7 @@ public class TelaLogin extends javax.swing.JFrame {
         if (conexao != null) {
             lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ao/com/infox/icons/bdOK.png")));
         } else {
-            lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ao/com/infox/icons/bdErro.png")));            
+            lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ao/com/infox/icons/bdErro.png")));
         }
     }
 
