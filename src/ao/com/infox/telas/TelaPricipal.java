@@ -73,6 +73,11 @@ public class TelaPricipal extends javax.swing.JFrame {
 
         menCadCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
         menCadCliente.setText("Cliente");
+        menCadCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menCadClienteActionPerformed(evt);
+            }
+        });
         menCadastro.add(menCadCliente);
 
         menCadOrdem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
@@ -197,6 +202,13 @@ public class TelaPricipal extends javax.swing.JFrame {
             Desktop.add(usuario);
             
     }//GEN-LAST:event_menCadUsuarioActionPerformed
+
+    private void menCadClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menCadClienteActionPerformed
+        // Abrir o formulario tela clientes 
+        TelaCliente cliente = new TelaCliente();
+        cliente.setVisible(true);
+        Desktop.add(cliente);
+    }//GEN-LAST:event_menCadClienteActionPerformed
 
     /**
      * @param args the command line arguments
