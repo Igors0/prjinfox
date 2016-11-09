@@ -57,17 +57,17 @@ public class TelaPricipal extends javax.swing.JFrame {
         });
 
         Desktop.setBackground(java.awt.Color.black);
-        Desktop.setPreferredSize(new java.awt.Dimension(740, 580));
+        Desktop.setPreferredSize(new java.awt.Dimension(920, 700));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ao/com/infox/icons/logo.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ao/com/infox/icons/principal.png"))); // NOI18N
 
-        lblUsuario.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
+        lblUsuario.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         lblUsuario.setText("Usuário");
 
-        lblData.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
+        lblData.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         lblData.setText("Data");
 
-        menuBar.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        menuBar.setFont(new java.awt.Font("Ubuntu", 0, 48)); // NOI18N
 
         menCadastro.setText("Cadastro");
 
@@ -82,6 +82,11 @@ public class TelaPricipal extends javax.swing.JFrame {
 
         menCadOrdem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.ALT_MASK));
         menCadOrdem.setText("OS");
+        menCadOrdem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menCadOrdemActionPerformed(evt);
+            }
+        });
         menCadastro.add(menCadOrdem);
 
         menCadUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_MASK));
@@ -139,37 +144,36 @@ public class TelaPricipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Desktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Desktop, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1))
+                        .addGap(108, 108, 108)
+                        .addComponent(lblData))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblUsuario)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(lblData)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addGap(93, 93, 93)
+                        .addComponent(lblUsuario))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Desktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblData)
-                        .addGap(114, 114, 114)
-                        .addComponent(jLabel1)))
-                .addGap(0, 14, Short.MAX_VALUE))
+                .addGap(88, 88, 88)
+                .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(158, 158, 158)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Desktop, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(151, 151, 151))
         );
 
-        setSize(new java.awt.Dimension(1052, 671));
+        setSize(new java.awt.Dimension(1211, 774));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -209,6 +213,13 @@ public class TelaPricipal extends javax.swing.JFrame {
         cliente.setVisible(true);
         Desktop.add(cliente);
     }//GEN-LAST:event_menCadClienteActionPerformed
+
+    private void menCadOrdemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menCadOrdemActionPerformed
+        // Abrindo a tela OS
+        TelaOS os = new TelaOS();
+        os.setVisible(true);
+        Desktop.add(os);
+    }//GEN-LAST:event_menCadOrdemActionPerformed
 
     /**
      * @param args the command line arguments
